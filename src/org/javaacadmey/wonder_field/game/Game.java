@@ -12,6 +12,7 @@ public class Game {
     private final String[] question = new String[numberOfRounds];
     private final String[] answers = new String[numberOfRounds];
     private final Tableau tableau = new Tableau();
+    private final Yakubovich yakubovich = new Yakubovich();
 
     public void init() {
         System.out.println("Запуск игры \"Поле Чудес\" - подготовка к игре. Вам нужно ввести вопросы и ответы для игры.");
@@ -41,6 +42,8 @@ public class Game {
         for (int i = 0; i < 50; i++) {
             System.out.println();
         }
+
+        yakubovich.startGame();
 
         for (int i = 0; i < question.length; i++) {
             tableau.initTableau(answers[i]);

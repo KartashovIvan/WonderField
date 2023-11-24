@@ -14,6 +14,14 @@ public class Player {
         this.name = name;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public String sayLetter() {
         System.out.println("Скажите букву");
         String answer = Game.READER.nextLine();
