@@ -3,14 +3,21 @@ package org.javaacadmey.wonder_field.game;
 import java.util.Arrays;
 
 public class Tableau {
+    //  Условие 2.1
     private String correctAnswer;
     private String[] letters;
 
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    //  Условие 2.2
     public void initTableau(String correct_answer) {
         this.correctAnswer = correct_answer;
         this.letters = new String[correct_answer.length()];
     }
 
+    //  Условие 2.3
     public void showTableau() {
         checkField();
 
@@ -26,15 +33,8 @@ public class Tableau {
         System.out.println(word);
     }
 
-    public void openCorrectAnswer(String answer) {
-        checkField();
-
-        if (answer.equalsIgnoreCase(correctAnswer)) {
-            letters = correctAnswer.split("");
-        }
-    }
-
-    public void openLetter(String answer) {
+    //  Условие 2.4
+    public boolean openLetter(String answer) {
         checkField();
 
         int[] keyArray = similarCharacters(answer);
@@ -42,9 +42,9 @@ public class Tableau {
             for (int i : keyArray) {
                 letters[i] = answer;
             }
-        } else {
-            System.out.println("Нет такой буквы");
+            return true;
         }
+        return false;
     }
 
     private int[] similarCharacters(String letter) {
@@ -60,6 +60,16 @@ public class Tableau {
         return keyArray;
     }
 
+    //  Условие 2.5
+    public boolean openCorrectAnswer(String answer) {
+        if (answer.equalsIgnoreCase(correctAnswer)) {
+            letters = correctAnswer.split("");
+            return true;
+        }
+        return false;
+    }
+
+    //  Условие 2.6
     public boolean checkUnknownLetters() {
         for (String letter : letters) {
             if (letter.equals("_")) {
@@ -69,9 +79,10 @@ public class Tableau {
         return false;
     }
 
+    //  Условие 2.7
     private void checkField() {
         if (correctAnswer.isEmpty()) {
-            throw new RuntimeException("Не задан правильный ответ");
+            throw new RuntimeException("Не задан правильный ответ на вопрос");
         }
     }
 }
