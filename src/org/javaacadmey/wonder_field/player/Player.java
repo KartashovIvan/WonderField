@@ -1,8 +1,7 @@
 package org.javaacadmey.wonder_field.player;
 
-import org.javaacadmey.wonder_field.Game;
+import org.javaacadmey.wonder_field.game.Game;
 
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

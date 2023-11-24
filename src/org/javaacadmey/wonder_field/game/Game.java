@@ -1,4 +1,5 @@
-package org.javaacadmey.wonder_field;
+package org.javaacadmey.wonder_field.game;
+
 
 import java.util.Scanner;
 
