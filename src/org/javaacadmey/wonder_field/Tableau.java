@@ -3,19 +3,19 @@ package org.javaacadmey.wonder_field;
 import java.util.Arrays;
 
 public class Tableau {
-    private String CORRECT_ANSWER;
-    private String[] LETTERS;
+    private String correctAnswer;
+    private String[] letters;
 
     public void initTableau(String correct_answer) {
-        this.CORRECT_ANSWER = correct_answer;
-        this.LETTERS = new String[correct_answer.length()];
+        this.correctAnswer = correct_answer;
+        this.letters = new String[correct_answer.length()];
     }
 
     public void showTableau() {
         checkField();
 
         StringBuilder word = new StringBuilder();
-        for (String letter : LETTERS) {
+        for (String letter : letters) {
             if (letter == null) {
                 word.append("_");
             } else {
@@ -29,8 +29,8 @@ public class Tableau {
     public void openCorrectAnswer(String answer) {
         checkField();
 
-        if (answer.equalsIgnoreCase(CORRECT_ANSWER)) {
-            LETTERS = CORRECT_ANSWER.split("");
+        if (answer.equalsIgnoreCase(correctAnswer)) {
+            letters = correctAnswer.split("");
         }
     }
 
@@ -40,7 +40,7 @@ public class Tableau {
         int[] keyArray = similarCharacters(answer);
         if (keyArray.length > 0) {
             for (int i : keyArray) {
-                LETTERS[i] = answer;
+                letters[i] = answer;
             }
         } else {
             System.out.println("Нет такой буквы");
@@ -50,7 +50,7 @@ public class Tableau {
     private int[] similarCharacters(String letter) {
         int count = 0;
         int[] keyArray = new int[0];
-        for (String value : CORRECT_ANSWER.split("")) {
+        for (String value : correctAnswer.split("")) {
             if (value.equalsIgnoreCase(letter)) {
                 keyArray = Arrays.copyOf(keyArray, keyArray.length + 1);
                 keyArray[keyArray.length - 1] = count;
@@ -61,14 +61,16 @@ public class Tableau {
     }
 
     public boolean checkUnknownLetters() {
-        for (String letter : LETTERS) {
-            if (letter.equals("_")) return true;
+        for (String letter : letters) {
+            if (letter.equals("_")) {
+                return true;
+            }
         }
         return false;
     }
 
     private void checkField() {
-        if (CORRECT_ANSWER.isEmpty()) {
+        if (correctAnswer.isEmpty()) {
             throw new RuntimeException("Не задан правильный ответ");
         }
     }
