@@ -7,14 +7,10 @@ public class Tableau {
     private String correctAnswer;
     private String[] letters;
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
     //  Условие 2.2
-    public void initTableau(String correct_answer) {
-        this.correctAnswer = correct_answer;
-        this.letters = new String[correct_answer.length()];
+    public void initTableau(Exercise exercise) {
+        this.correctAnswer = exercise.getAnswer();
+        this.letters = new String[correctAnswer.length()];
     }
 
     //  Условие 2.3
@@ -34,39 +30,18 @@ public class Tableau {
     }
 
     //  Условие 2.4
-    public boolean openLetter(String answer) {
+    public void openLetter(int[] numberOfLetters, String letter) {
         checkField();
 
-        int[] keyArray = similarCharacters(answer);
-        if (keyArray.length > 0) {
-            for (int i : keyArray) {
-                letters[i] = answer;
-            }
-            return true;
+        for (int i : numberOfLetters) {
+            letters[i] = letter;
         }
-        return false;
     }
 
-    private int[] similarCharacters(String letter) {
-        int count = 0;
-        int[] keyArray = new int[0];
-        for (String value : correctAnswer.split("")) {
-            if (value.equalsIgnoreCase(letter)) {
-                keyArray = Arrays.copyOf(keyArray, keyArray.length + 1);
-                keyArray[keyArray.length - 1] = count;
-            }
-            count++;
-        }
-        return keyArray;
-    }
 
     //  Условие 2.5
-    public boolean openCorrectAnswer(String answer) {
-        if (answer.equalsIgnoreCase(correctAnswer)) {
-            letters = correctAnswer.split("");
-            return true;
-        }
-        return false;
+    public void openCorrectAnswer(String answer) {
+        letters = answer.split("");
     }
 
     //  Условие 2.6

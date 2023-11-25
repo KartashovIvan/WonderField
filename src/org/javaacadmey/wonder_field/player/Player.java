@@ -1,15 +1,15 @@
 package org.javaacadmey.wonder_field.player;
 
-import org.javaacadmey.wonder_field.game.Game;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.javaacadmey.wonder_field.utils.GameLogics.*;
 
 public class Player {
     private String city;
     private String name;
 
-    public Player(String city, String name) {
+    public Player(String name, String city) {
         this.city = city;
         this.name = name;
     }
@@ -24,13 +24,13 @@ public class Player {
 
     public String sayLetter() {
         System.out.println("Скажите букву");
-        String answer = Game.READER.nextLine();
+        String answer = readConsole();
         Pattern patternLetter = Pattern.compile("[а-яА-Я]{1}");
         Matcher matcherLetter = patternLetter.matcher(answer);
 
         while (!matcherLetter.matches() || answer.length() != 1) {
             System.out.println("Нужно сказать только одну букву из русского алфавита");
-            answer = Game.READER.nextLine();
+            answer = readConsole();
             matcherLetter = patternLetter.matcher(answer);
         }
 
@@ -40,7 +40,7 @@ public class Player {
 
     public String sayWord() {
         System.out.println("Скажите слово");
-        String answer = Game.READER.nextLine();
+        String answer = readConsole();
 
         System.out.println("Игрок " + this.name + ": слово " + answer);
         return answer;
@@ -51,12 +51,12 @@ public class Player {
         System.out.println("Если хотите сказать букву нажмите 'б' и enter, если хотите сказать слово нажмите 'c' и enter");
 
         while (true) {
-            String answer = Game.READER.nextLine();
+            String answer = readConsole();
             switch (answer) {
                 case ("б"):
-                    return new PlayerAnswer(TypeAnswer.LETTER, sayLetter());
+                    return new PlayerAnswer(this, TypeAnswer.LETTER, sayLetter());
                 case ("с"):
-                    return new PlayerAnswer(TypeAnswer.WORD, sayWord());
+                    return new PlayerAnswer(this, TypeAnswer.WORD, sayWord());
                 default:
                     System.out.println("Некорректное значение, введите 'б' или 'с'");
                     break;
