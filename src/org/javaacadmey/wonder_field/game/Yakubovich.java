@@ -4,10 +4,6 @@ import org.javaacadmey.wonder_field.player.Player;
 import org.javaacadmey.wonder_field.player.PlayerAnswer;
 import org.javaacadmey.wonder_field.player.TypeAnswer;
 
-import java.util.Arrays;
-
-import static org.javaacadmey.wonder_field.game.Game.takeNamePlayers;
-
 public class Yakubovich {
     //  Условие 4.2
     public void startGame() {
@@ -29,7 +25,7 @@ public class Yakubovich {
     }
 
     private String concatNames(Player[] players) {
-        return String.join(", ", takeNamePlayers(players));
+        return String.join(", ", Game.takeNamePlayers(players));
     }
 
     //  Условие 4.5
@@ -38,59 +34,56 @@ public class Yakubovich {
     }
 
     //  Условие 4.6
-    public void nameWinner(String name, String city, int numberOfRounds) {
-        if (numberOfRounds <= 3) {
-            System.out.println("Якубович: Молодец! " + name + " из " + city + " проходит в финал!");
+    public void nameWinner(Player player, int numberOfRounds) {
+        if (numberOfRounds < 3) {
+            System.out.println("Якубович: Молодец! " + player.getName() + " из " + player.getCity() + " проходит в финал!");
         } else {
-            System.out.println("Якубович: И перед нами победитель Капитал шоу поле чудес! Это " + name + " из " + city);
+            System.out.println("Якубович: И перед нами победитель Капитал шоу поле чудес! Это " + player.getName() + " из " + player.getCity());
         }
     }
 
     //  Условие 4.7
-    public void checkAnswerPlayer(PlayerAnswer playerAnswer, Exercise exercise, Tableau tableau) {
-        String answerPlayer = playerAnswer.getAnswer();
+    public boolean checkAnswerPlayer(PlayerAnswer playerAnswer, Exercise exercise, Tableau tableau) {
         String correctAnswer = exercise.getAnswer();
 
         if (playerAnswer.getTypeAnswer().equals(TypeAnswer.LETTER)) {
-            checkLetter(answerPlayer, correctAnswer, tableau);
+            return checkLetter(playerAnswer, correctAnswer, tableau);
         } else {
-            checkWord(answerPlayer, correctAnswer, tableau);
-//            TODO: как вызвать этот метод от сюда , нужно ли это тут делать, если да, то как передать сюда номер раунда
-//            nameWinner(playerAnswer.getPlayer().getName(), playerAnswer.getPlayer().getCity());
-        }
-
-        System.out.println("__________________________________");
-    }
-
-    private void checkLetter(String answerPlayer, String correctAnswer, Tableau tableau) {
-        if (correctAnswer.contains(answerPlayer)) {
-            System.out.println("Якубович: Есть такая буква, откройте ее!");
-            int[] letters = similarCharacters(answerPlayer, correctAnswer);
-            tableau.openLetter(letters, answerPlayer);
-        } else {
-            System.out.println("Якубович: Нет такой буквы! Следующий игрок, крутите барабан!");
+            return checkWord(playerAnswer, correctAnswer, tableau);
         }
     }
 
-    private int[] similarCharacters(String letter, String correctAnswer) {
-        int count = 0;
-        int[] keyArray = new int[1];
-        for (String value : correctAnswer.split("")) {
-            if (value.equalsIgnoreCase(letter)) {
-                keyArray = Arrays.copyOf(keyArray, keyArray.length + 1);
-                keyArray[keyArray.length - 1] = count;
+    private boolean checkLetter(PlayerAnswer playerAnswer, String correctAnswer, Tableau tableau) {
+        if (tableau.checkOpenLetters(playerAnswer)) {
+            System.out.println("Якубович: Такая буква уже открыта!");
+            tableau.showTableau();
+            return true;
+        } else {
+            String[] split = correctAnswer.split("");
+            for (String str : split) {
+                if (str.equalsIgnoreCase(playerAnswer.getAnswer())) {
+                    System.out.println("Якубович: Есть такая буква, откройте ее!");
+                    tableau.openLetter(playerAnswer);
+                    tableau.showTableau();
+                    return true;
+                }
             }
-            count++;
         }
-        return keyArray;
+        System.out.println("Якубович: Нет такой буквы! Следующий игрок, крутите барабан!");
+        System.out.println("__________________________________");
+        return false;
     }
 
-    private void checkWord(String answerPlayer, String correctAnswer, Tableau tableau) {
-        if (answerPlayer.equalsIgnoreCase(correctAnswer)) {
-            System.out.println("Якубович: " + answerPlayer + "! Абсолютно верно!");
-            tableau.openCorrectAnswer(answerPlayer);
+    private boolean checkWord(PlayerAnswer playerAnswer, String correctAnswer, Tableau tableau) {
+        String answer = playerAnswer.getAnswer();
+        if (answer.equalsIgnoreCase(correctAnswer)) {
+            System.out.println("Якубович: " + answer + "! Абсолютно верно!");
+            tableau.openCorrectAnswer(answer);
+            return true;
         } else {
             System.out.println("Якубович: Неверно! Следующий игрок!");
+            System.out.println("__________________________________");
+            return false;
         }
     }
 }
