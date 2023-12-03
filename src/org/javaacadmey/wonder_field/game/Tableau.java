@@ -2,8 +2,6 @@ package org.javaacadmey.wonder_field.game;
 
 import org.javaacadmey.wonder_field.player.PlayerAnswer;
 
-import java.util.Arrays;
-
 public class Tableau {
     //  Условие 2.1
     private String correctAnswer;
@@ -13,10 +11,7 @@ public class Tableau {
     //  Условие 2.2
     public void initTableau(Exercise exercise) {
         this.correctAnswer = exercise.getAnswer();
-        this.letters = new String[correctAnswer.length()];
-        for (int i = 0; i < correctAnswer.length(); i++) {
-            letters[i] = "_";
-        }
+        letters = correctAnswer.replaceAll(".", "_").split("");
     }
 
     //  Условие 2.3
@@ -39,9 +34,10 @@ public class Tableau {
     public void openLetter(PlayerAnswer playerAnswer) {
         checkField();
 
-        int[] numberOfLetters = similarCharacters(playerAnswer.getAnswer(), correctAnswer);
-        for (int i : numberOfLetters) {
-            letters[i] = playerAnswer.getAnswer();
+        for (int i = 0; i < correctAnswer.length(); i++) {
+            if (correctAnswer.charAt(i) == playerAnswer.getAnswer().charAt(0)){
+                letters[i] = playerAnswer.getAnswer();
+            }
         }
     }
 
@@ -52,19 +48,6 @@ public class Tableau {
             }
         }
         return false;
-    }
-
-    private int[] similarCharacters(String letter, String correctAnswer) {
-        int count = 0;
-        int[] keyArray = new int[0];
-        for (String value : correctAnswer.split("")) {
-            if (value.equalsIgnoreCase(letter)) {
-                keyArray = Arrays.copyOf(keyArray, keyArray.length + 1);
-                keyArray[keyArray.length - 1] = count;
-            }
-            count++;
-        }
-        return keyArray;
     }
 
     //  Условие 2.5
