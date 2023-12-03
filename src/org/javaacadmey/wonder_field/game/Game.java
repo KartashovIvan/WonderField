@@ -27,11 +27,11 @@ public class Game {
         createQuestion();
 
         System.out.println("Иницализация закончена, игра начнется через 5 секунд");
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
 
         System.out.println("\n".repeat(50));
     }
@@ -52,10 +52,10 @@ public class Game {
     }
 
     private void autoCreateQuestion() {
-        exercises[0] = new Exercise("Как называется третья планета от солнца?", "земля");
+        exercises[0] = new Exercise("Как называется третья планета от солнца?", "Земляз");
         exercises[1] = new Exercise("Какого слова не хватает во фразе \"Пейте, дети, ... будете здоровыми!\" ?", "молоко");
         exercises[2] = new Exercise("Как зовут ведущего?", "Якубович");
-        exercises[3] = new Exercise("Как называется последняя планета в солнечной системе?", "Нептун");
+        exercises[3] = new Exercise("Как называется последняя планета в солнечной системе?", "нептун");
     }
 
     //    Пункт 5.1

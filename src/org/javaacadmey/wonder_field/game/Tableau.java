@@ -10,7 +10,7 @@ public class Tableau {
 
     //  Условие 2.2
     public void initTableau(Exercise exercise) {
-        this.correctAnswer = exercise.getAnswer();
+        this.correctAnswer = exercise.getAnswer().toLowerCase();
         letters = correctAnswer.replaceAll(".", "_").split("");
     }
 
@@ -33,11 +33,10 @@ public class Tableau {
     //  Условие 2.4
     public void openLetter(PlayerAnswer playerAnswer) {
         checkField();
+        String answer = playerAnswer.getAnswer();
 
         for (int i = 0; i < correctAnswer.length(); i++) {
-            if (correctAnswer.charAt(i) == playerAnswer.getAnswer().charAt(0)){
-                letters[i] = playerAnswer.getAnswer();
-            }
+            letters[i] = correctAnswer.charAt(i) == answer.charAt(0) ? answer : letters[i];
         }
     }
 

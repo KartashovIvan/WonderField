@@ -61,7 +61,7 @@ public class Yakubovich {
         } else {
             String[] split = correctAnswer.split("");
             for (String str : split) {
-                if (str.equalsIgnoreCase(playerAnswer.getAnswer())) {
+                if (str.contains(playerAnswer.getAnswer().toLowerCase())) {
                     System.out.println("Якубович: Есть такая буква, откройте ее!");
                     tableau.openLetter(playerAnswer);
                     tableau.showTableau();
