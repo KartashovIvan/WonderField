@@ -7,8 +7,9 @@ import java.util.regex.Pattern;
 
 public class Player {
     private final String city;
-
     private final String name;
+    private int gamePoints = 0;
+
 
     public Player(String name, String city) {
         this.city = city;
@@ -21,6 +22,10 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public int getGamePoints() {
+        return gamePoints;
     }
 
     public String sayLetter() {
@@ -48,7 +53,6 @@ public class Player {
     }
 
     public PlayerAnswer move() {
-        System.out.println("Ход игрока " + this.city + ", " + this.name);
         System.out.println("Если хотите сказать букву нажмите 'б' и enter, если хотите сказать слово нажмите 'c' и enter");
 
         while (true) {
@@ -63,5 +67,9 @@ public class Player {
                     break;
             }
         }
+    }
+
+    public void addGamePoints (int gamePoints){
+        this.gamePoints += gamePoints;
     }
 }

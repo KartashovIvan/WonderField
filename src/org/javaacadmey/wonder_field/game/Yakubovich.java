@@ -36,9 +36,9 @@ public class Yakubovich {
     //  Условие 4.6
     public void nameWinner(Player player, int numberOfRounds) {
         if (numberOfRounds < 3) {
-            System.out.println("Якубович: Молодец! " + player.getName() + " из " + player.getCity() + " проходит в финал!");
+            System.out.printf("Якубович: Молодец! %s из %s проходит в финал! Колличество очков: %d \n", player.getName(), player.getCity(), player.getGamePoints());
         } else {
-            System.out.println("Якубович: И перед нами победитель Капитал шоу поле чудес! Это " + player.getName() + " из " + player.getCity());
+            System.out.printf("Якубович: И перед нами победитель Капитал шоу поле чудес! Это %s из %s. Колличество очков: %d \n", player.getName(), player.getCity(), player.getGamePoints());
         }
     }
 
@@ -61,7 +61,7 @@ public class Yakubovich {
         } else {
             String[] split = correctAnswer.split("");
             for (String str : split) {
-                if (str.contains(playerAnswer.getAnswer().toLowerCase())) {
+                if (str.toLowerCase().contains(playerAnswer.getAnswer().toLowerCase())) {
                     System.out.println("Якубович: Есть такая буква, откройте ее!");
                     tableau.openLetter(playerAnswer);
                     tableau.showTableau();
@@ -85,5 +85,9 @@ public class Yakubovich {
             System.out.println("__________________________________");
             return false;
         }
+    }
+
+    public void skipPlayer() {
+        System.out.println("На барабане пропуск хода! Следующий игрок, крутите барабан!");
     }
 }
