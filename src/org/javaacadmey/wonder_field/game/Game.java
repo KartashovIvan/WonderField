@@ -1,10 +1,9 @@
 package org.javaacadmey.wonder_field.game;
 
 
+import java.util.Scanner;
 import org.javaacadmey.wonder_field.player.Player;
 import org.javaacadmey.wonder_field.player.PlayerAnswer;
-
-import java.util.Scanner;
 
 public class Game {
     private final int numberOfPlayers = 3;
@@ -101,7 +100,7 @@ public class Game {
         }
 
         PlayerAnswer playerAnswer = player.move();
-        if (yakubovich.checkAnswerPlayer(playerAnswer, exercise, tableau)){
+        if (yakubovich.checkAnswerPlayer(playerAnswer, exercise, tableau)) {
             wheel.givePoints(player, gamePoint);
             return true;
         }

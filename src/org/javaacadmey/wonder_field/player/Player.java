@@ -1,9 +1,8 @@
 package org.javaacadmey.wonder_field.player;
 
-import org.javaacadmey.wonder_field.game.Game;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.javaacadmey.wonder_field.game.Game;
 
 public class Player {
     private final String city;
@@ -69,7 +68,7 @@ public class Player {
         }
     }
 
-    public void addGamePoints (int gamePoints){
+    public void addGamePoints(int gamePoints) {
         this.gamePoints += gamePoints;
     }
 }

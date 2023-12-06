@@ -1,8 +1,7 @@
 package org.javaacadmey.wonder_field.game;
 
-import org.javaacadmey.wonder_field.player.Player;
-
 import java.util.Random;
+import org.javaacadmey.wonder_field.player.Player;
 
 public class Wheel {
     private final Random random = new Random();

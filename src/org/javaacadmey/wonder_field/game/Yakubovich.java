@@ -36,9 +36,15 @@ public class Yakubovich {
     //  Условие 4.6
     public void nameWinner(Player player, int numberOfRounds) {
         if (numberOfRounds < 3) {
-            System.out.printf("Якубович: Молодец! %s из %s проходит в финал! Колличество очков: %d \n", player.getName(), player.getCity(), player.getGamePoints());
+            System.out.printf("Якубович: Молодец! %s из %s проходит в финал! Колличество очков: %d \n",
+                    player.getName(),
+                    player.getCity(),
+                    player.getGamePoints());
         } else {
-            System.out.printf("Якубович: И перед нами победитель Капитал шоу поле чудес! Это %s из %s. Колличество очков: %d \n", player.getName(), player.getCity(), player.getGamePoints());
+            System.out.printf("Якубович: И перед нами победитель Капитал шоу поле чудес! Это %s из %s. Колличество очков: %d \n",
+                    player.getName(),
+                    player.getCity(),
+                    player.getGamePoints());
         }
     }
 
