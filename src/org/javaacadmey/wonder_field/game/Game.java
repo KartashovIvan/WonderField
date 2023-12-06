@@ -2,6 +2,7 @@ package org.javaacadmey.wonder_field.game;
 
 
 import java.util.Scanner;
+
 import org.javaacadmey.wonder_field.player.Player;
 import org.javaacadmey.wonder_field.player.PlayerAnswer;
 
@@ -92,19 +93,22 @@ public class Game {
 
     //    Пункт 5.5
     private boolean moveOfPlayer(Exercise exercise, Player player) {
-        int gamePoint = wheel.spinWheel();
         System.out.println("Ход игрока " + player.getCity() + ", " + player.getCity());
-        if (gamePoint == 14) {
-            yakubovich.skipPlayer();
+        if (checkWheel(player)) {
             return false;
         }
 
         PlayerAnswer playerAnswer = player.move();
-        if (yakubovich.checkAnswerPlayer(playerAnswer, exercise, tableau)) {
-            wheel.givePoints(player, gamePoint);
+        return yakubovich.checkAnswerPlayer(playerAnswer, exercise, tableau);
+    }
+
+    public boolean checkWheel(Player player) {
+        int gamePoint = wheel.spinWheel();
+        if (gamePoint == 14) {
+            yakubovich.skipPlayer();
             return true;
         }
-
+        wheel.givePoints(player, gamePoint);
         return false;
     }
 
