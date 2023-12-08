@@ -7,6 +7,8 @@ import org.javaacadmey.wonder_field.player.Player;
 import org.javaacadmey.wonder_field.player.PlayerAnswer;
 
 public class Game {
+    public static final Scanner READER = new Scanner(System.in);
+
     private final int numberOfPlayers = 3;
     private final int numberOfRounds = 4;
     private final int numberOfGroupRounds = 3;
@@ -16,17 +18,13 @@ public class Game {
     private final Player[] winners = new Player[numberOfPlayers];
     private final Wheel wheel = new Wheel();
 
-    public static final Scanner READER = new Scanner(System.in);
-
     public static String readConsole() {
         return READER.nextLine();
     }
 
     public void init() {
         System.out.println("Запуск игры \"Поле Чудес\" - подготовка к игре. Вам нужно ввести вопросы и ответы для игры.");
-
         createQuestion();
-
         System.out.println("Иницализация закончена, игра начнется через 5 секунд");
         try {
             Thread.sleep(5000);

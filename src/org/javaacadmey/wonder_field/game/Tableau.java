@@ -4,8 +4,7 @@ import org.javaacadmey.wonder_field.player.PlayerAnswer;
 
 public class Tableau {
     //  Условие 2.1
-    private String correctAnswer;
-
+    private String correctAnswer = "";
     private String[] letters;
 
     //  Условие 2.2
