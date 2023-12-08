@@ -1,6 +1,6 @@
 package org.javaacadmey.wonder_field.game;
 
-
+import java.util.Random;
 import java.util.Scanner;
 
 import org.javaacadmey.wonder_field.player.Player;
@@ -99,7 +99,12 @@ public class Game {
         }
 
         PlayerAnswer playerAnswer = player.move();
-        return yakubovich.checkAnswerPlayer(playerAnswer, exercise, tableau);
+        if (yakubovich.checkAnswerPlayer(playerAnswer, exercise, tableau)) {
+            tableau.openLetter(playerAnswer);
+            tableau.showTableau();
+            return true;
+        }
+        return false;
     }
 
     public boolean checkWheel(Player player) {
@@ -115,11 +120,53 @@ public class Game {
     //    Пункт 5.6
     private boolean playRound(Exercise exercise, Player player) {
         while (moveOfPlayer(exercise, player)) {
+            player.counter++;
+            if (player.counter % 3 == 0) {
+                chooseBox(player, createBoxes());
+            }
             if (openAllLetter()) {
                 return true;
             }
         }
         return false;
+    }
+
+    private void chooseBox(Player player, Box[] boxes) {
+        System.out.println("После отгаданных 3-х букв подряд необходимо выбрать одну из коробок. Какую коробку выбираете? Если левую введите 'л', если правую введите 'п'");
+        boolean end = true;
+        while (end) {
+            String answer = Game.readConsole();
+            switch (answer) {
+                case ("л") -> {
+                    checkBox(player, boxes[0]);
+                    end = false;
+                }
+                case ("п") -> {
+                    checkBox(player, boxes[1]);
+                    end = false;
+                }
+                default -> System.out.println("Некорректное значение, введите 'л' или 'п'");
+            }
+        }
+    }
+
+    private void checkBox(Player player, Box box) {
+        int money = box.getMoney();
+        if (money > 0) {
+            player.setMoney(money);
+            System.out.println("И вы получаете приз " + money + " рублей");
+        } else {
+            System.out.println("К сожалению деньги были в другой коробке");
+        }
+    }
+
+    private Box[] createBoxes() {
+        Random random = new Random();
+        Box[] boxes = new Box[]{new Box(), new Box()};
+
+        boxes[random.nextInt(0, 2)].setMoney(random.nextInt(0, 10_001));
+
+        return boxes;
     }
 
     //    Пункт 5.7

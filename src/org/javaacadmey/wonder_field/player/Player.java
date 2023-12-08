@@ -2,13 +2,15 @@ package org.javaacadmey.wonder_field.player;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.javaacadmey.wonder_field.game.Game;
 
 public class Player {
     private final String city;
     private final String name;
     private int gamePoints = 0;
-
+    private int money =0;
+    public int counter = 0;
 
     public Player(String name, String city) {
         this.city = city;
@@ -25,6 +27,14 @@ public class Player {
 
     public int getGamePoints() {
         return gamePoints;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 
     public String sayLetter() {

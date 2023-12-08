@@ -41,10 +41,11 @@ public class Yakubovich {
                     player.getCity(),
                     player.getGamePoints());
         } else {
-            System.out.printf("Якубович: И перед нами победитель Капитал шоу поле чудес! Это %s из %s. Колличество очков: %d \n",
+            System.out.printf("Якубович: И перед нами победитель Капитал шоу поле чудес! Это %s из %s. Колличество очков: %d .Призовые деньги %d\n",
                     player.getName(),
                     player.getCity(),
-                    player.getGamePoints());
+                    player.getGamePoints(),
+                    player.getMoney());
         }
     }
 
@@ -69,8 +70,8 @@ public class Yakubovich {
             for (String str : split) {
                 if (str.toLowerCase().contains(playerAnswer.getAnswer().toLowerCase())) {
                     System.out.println("Якубович: Есть такая буква, откройте ее!");
-                    tableau.openLetter(playerAnswer);
-                    tableau.showTableau();
+//                    tableau.openLetter(playerAnswer);
+//                    tableau.showTableau();
                     return true;
                 }
             }
