@@ -1,8 +1,7 @@
 package org.javaacadmey.wonder_field.game;
 
-
+import java.util.Random;
 import java.util.Scanner;
-
 import org.javaacadmey.wonder_field.player.Player;
 import org.javaacadmey.wonder_field.player.PlayerAnswer;
 
@@ -10,13 +9,15 @@ public class Game {
     public static final Scanner READER = new Scanner(System.in);
 
     private final int numberOfPlayers = 3;
-    private final int numberOfRounds = 4;
+    private final int numberOfRounds = 5;
     private final int numberOfGroupRounds = 3;
     private final Exercise[] exercises = new Exercise[numberOfRounds];
     private final Tableau tableau = new Tableau();
     private final Yakubovich yakubovich = new Yakubovich();
     private final Player[] winners = new Player[numberOfPlayers];
     private final Wheel wheel = new Wheel();
+    private final Accountant accountant = new Accountant();
+    private Player winner;
 
     public static String readConsole() {
         return READER.nextLine();
@@ -55,6 +56,7 @@ public class Game {
         exercises[1] = new Exercise("Какого слова не хватает во фразе \"Пейте, дети, ... будете здоровыми!\" ?", "молоко");
         exercises[2] = new Exercise("Как зовут ведущего?", "Якубович");
         exercises[3] = new Exercise("Как называется последняя планета в солнечной системе?", "нептун");
+        exercises[4] = new Exercise("В словаре Владимира Ивановича Даля встречается старинное название барометра. Какое?", "Буревестник");
     }
 
     //    Пункт 5.1
@@ -97,10 +99,15 @@ public class Game {
         }
 
         PlayerAnswer playerAnswer = player.move();
-        return yakubovich.checkAnswerPlayer(playerAnswer, exercise, tableau);
+        accountant.countLetterBeforeAnswer(playerAnswer, tableau);
+        if (yakubovich.checkAnswerPlayer(playerAnswer, exercise, tableau)) {
+            accountant.countLetterAfterAnswer(playerAnswer, player, tableau);
+            return true;
+        }
+        return false;
     }
 
-    public boolean checkWheel(Player player) {
+    private boolean checkWheel(Player player) {
         int gamePoint = wheel.spinWheel();
         if (gamePoint == 14) {
             yakubovich.skipPlayer();
@@ -113,11 +120,59 @@ public class Game {
     //    Пункт 5.6
     private boolean playRound(Exercise exercise, Player player) {
         while (moveOfPlayer(exercise, player)) {
+            checkPlayerCounter(player);
             if (openAllLetter()) {
+                player.setCounter(0);
                 return true;
             }
         }
+        player.setCounter(0);
         return false;
+    }
+
+    private void checkPlayerCounter(Player player) {
+        if (player.getCounter() >= 3) {
+            chooseBox(player, createBoxes());
+            player.setCounter(player.getCounter() - 3);
+        }
+    }
+
+    private void chooseBox(Player player, Box[] boxes) {
+        System.out.println("После отгаданных 3-х букв подряд необходимо выбрать одну из коробок. Какую коробку выбираете? Если левую введите 'л', если правую введите 'п'");
+        boolean end = true;
+        while (end) {
+            String answer = Game.readConsole();
+            switch (answer) {
+                case ("л") -> {
+                    checkBox(player, boxes[0]);
+                    end = false;
+                }
+                case ("п") -> {
+                    checkBox(player, boxes[1]);
+                    end = false;
+                }
+                default -> System.out.println("Некорректное значение, введите 'л' или 'п'");
+            }
+        }
+    }
+
+    private void checkBox(Player player, Box box) {
+        int money = box.getMoney();
+        if (money > 0) {
+            player.setMoney(money);
+            System.out.println("И вы получаете приз " + money + " рублей");
+        } else {
+            System.out.println("К сожалению деньги были в другой коробке");
+        }
+    }
+
+    private Box[] createBoxes() {
+        Random random = new Random();
+        Box[] boxes = new Box[]{new Box(), new Box()};
+
+        boxes[random.nextInt(0, 2)].setMoney(random.nextInt(0, 10_001));
+
+        return boxes;
     }
 
     //    Пункт 5.7
@@ -157,7 +212,8 @@ public class Game {
                 tableau.showTableau();
                 if (playRound(exercise, player)) {
                     tableau.showTableau();
-                    yakubovich.nameWinner(player, numberOfRounds);
+                    yakubovich.nameWinner(player, numberOfRounds - 2);
+                    winner = player;
                     play = false;
                     break;
                 }
@@ -169,6 +225,9 @@ public class Game {
         yakubovich.startGame();
         playGroupRounds();
         playFinalGroupRounds();
+        SuperGame superGame = new SuperGame();
+        superGame.initSuperGame(winner, exercises[numberOfRounds - 1], yakubovich, tableau);
+        yakubovich.nameWinner(winner, numberOfRounds);
         yakubovich.endGame();
     }
 }

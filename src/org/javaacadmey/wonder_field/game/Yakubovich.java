@@ -40,11 +40,19 @@ public class Yakubovich {
                     player.getName(),
                     player.getCity(),
                     player.getGamePoints());
-        } else {
-            System.out.printf("Якубович: И перед нами победитель Капитал шоу поле чудес! Это %s из %s. Колличество очков: %d \n",
+        } else if (numberOfRounds == 3) {
+            System.out.printf("Якубович: И перед нами победитель четырех руадов Капитал шоу поле чудес! Это %s из %s. Колличество очков: %d .Призовые деньги %d\n",
                     player.getName(),
                     player.getCity(),
-                    player.getGamePoints());
+                    player.getGamePoints(),
+                    player.getMoney());
+        } else {
+            System.out.printf("Якубович: И перед нами победитель Капитал шоу поле чудес! Это %s из %s. Колличество очков: %d .Призовые деньги %d. Призы %s\n",
+                    player.getName(),
+                    player.getCity(),
+                    player.getGamePoints(),
+                    player.getMoney(),
+                    player.getItems());
         }
     }
 
@@ -95,5 +103,21 @@ public class Yakubovich {
 
     public void skipPlayer() {
         System.out.println("На барабане пропуск хода! Следующий игрок, крутите барабан!");
+    }
+
+    public boolean askAboutSuperGame(Player winner) {
+        while (true) {
+            System.out.println(winner.getName() + ", будете ли вы участвовоать в супер игре? Если 'да' - то введите 'д', если 'нет', то введите 'н'");
+            String answer = Game.readConsole();
+            switch (answer) {
+                case ("д") -> {
+                    return true;
+                }
+                case ("н") -> {
+                    return false;
+                }
+                default -> System.out.println("Некорректное значение, введите 'д' или 'н'");
+            }
+        }
     }
 }

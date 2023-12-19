@@ -48,6 +48,16 @@ public class Tableau {
         return false;
     }
 
+    public int countOpenLetters() {
+        int count = 0;
+        for (int i = 0; i < correctAnswer.length(); i++) {
+            if (!letters[i].equals("_")) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     //  Условие 2.5
     public void openCorrectAnswer(String answer) {
         letters = answer.split("");
