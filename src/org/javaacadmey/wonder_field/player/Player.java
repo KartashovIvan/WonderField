@@ -3,8 +3,8 @@ package org.javaacadmey.wonder_field.player;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.javaacadmey.wonder_field.domain.Item;
 import org.javaacadmey.wonder_field.game.Game;
-import org.javaacadmey.wonder_field.game.Item;
 
 public class Player {
     private final String city;

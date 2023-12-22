@@ -1,4 +1,4 @@
-package org.javaacadmey.wonder_field.game;
+package org.javaacadmey.wonder_field.domain;
 
 public class Exercise {
 

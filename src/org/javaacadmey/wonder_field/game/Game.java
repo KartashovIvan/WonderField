@@ -2,6 +2,8 @@ package org.javaacadmey.wonder_field.game;
 
 import java.util.Random;
 import java.util.Scanner;
+import org.javaacadmey.wonder_field.domain.Box;
+import org.javaacadmey.wonder_field.domain.Exercise;
 import org.javaacadmey.wonder_field.player.Player;
 import org.javaacadmey.wonder_field.player.PlayerAnswer;
 
@@ -159,7 +161,7 @@ public class Game {
     private void checkBox(Player player, Box box) {
         int money = box.getMoney();
         if (money > 0) {
-            player.setMoney(money);
+            player.setMoney(player.getMoney() + money);
             System.out.println("И вы получаете приз " + money + " рублей");
         } else {
             System.out.println("К сожалению деньги были в другой коробке");

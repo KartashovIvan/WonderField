@@ -1,5 +1,6 @@
 package org.javaacadmey.wonder_field.game;
 
+import org.javaacadmey.wonder_field.domain.Exercise;
 import org.javaacadmey.wonder_field.player.PlayerAnswer;
 
 public class Tableau {

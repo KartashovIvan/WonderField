@@ -2,6 +2,8 @@ package org.javaacadmey.wonder_field.game;
 
 import java.util.Arrays;
 import java.util.Random;
+import org.javaacadmey.wonder_field.domain.Exercise;
+import org.javaacadmey.wonder_field.domain.Item;
 import org.javaacadmey.wonder_field.player.Player;
 import org.javaacadmey.wonder_field.player.PlayerAnswer;
 import org.javaacadmey.wonder_field.player.TypeAnswer;
